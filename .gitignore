@@ -2,6 +2,7 @@
 node_modules
 /dist
 
+
 # Vue config
 vue.config.js
 
