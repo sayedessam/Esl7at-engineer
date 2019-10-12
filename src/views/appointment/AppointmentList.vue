@@ -13,12 +13,12 @@
           >Esla7at / Appointments</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
+
+          <v-btn fab color="primary" dark class="mb-2" to="/addappointment">
+            <v-icon large>mdi-plus</v-icon>
+          </v-btn>
+
           <v-dialog v-model="dialog" max-width="500px">
-            <template v-slot:activator="{ on }">
-              <v-btn fab color="primary" dark class="mb-2" v-on="on">
-                <v-icon large>mdi-plus</v-icon>
-              </v-btn>
-            </template>
             <v-card>
               <v-card-title class="orange">
                 <span class="headline">{{ formTitle }}</span>
@@ -77,9 +77,9 @@
         </v-chip>
       </template>
       <template v-slot:item.services="{ item }">
-        <template v-for="serv in item.services">
+        <span v-for="(serv, i) in item.services" :key="i">
           <v-chip>{{ serv }}</v-chip>
-        </template>
+        </span>
       </template>
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -92,18 +92,19 @@
 export default {
   data: () => ({
     dialog: false,
-    serviceItems: ["Mechanic", "Oil", "Battery", "Tire", "Body", "Paint"],
+    serviceItems: ["Inspection", "PM", "Repair"],
     headers: [
+      { text: "Customer", align: "left", value: "customerName" },
+      { text: "Vehicle", align: "left", value: "vehicleName" },
       {
         text: "Workshop Name",
         align: "left",
-
-        value: "name"
+        value: "workshopName"
       },
       { text: "Services", value: "services", sortable: false },
-      { text: "Branches", value: "branches" },
-      { text: "Address", value: "address" },
-      { text: "Active", value: "active" },
+      { text: "Date", value: "appDate" },
+      { text: "Time", value: "appTime" },
+      { text: "Status", value: "status" },
       { text: "Actions", value: "action", sortable: false }
     ],
     workshops: [],
