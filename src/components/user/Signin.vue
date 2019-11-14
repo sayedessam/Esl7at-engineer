@@ -1,5 +1,6 @@
 
 <template>
+<!-- CodeCoEditor comment  -->
   <v-layout justify-center>
     <v-dialog v-model="dialog" max-width="390">
       <template v-slot:activator="{ on }">

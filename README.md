@@ -1,6 +1,10 @@
-# engineer
+# Esla7at - Engineer App
 
-## Project setup
+## Install Esla7at project:
+```bash
+git clone https://github.com/sayedessam/Esl7at-engineer.git
+```
+
 ```
 npm install
 ```
