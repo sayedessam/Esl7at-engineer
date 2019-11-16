@@ -64,8 +64,8 @@ export default {
   data() {
     return {
       dialog: false,
-      email: "",
-      password: ""
+      email: '',
+      password: ''
     };
   },
   computed: {
@@ -80,18 +80,15 @@ export default {
     }
   },
   watch: {
-    user(value) {
-      if (value !== null && value !== undefined) {
-        this.$router.push("/");
-      }
-    }
+    
   },
   methods: {
     onSignin() {
       this.$store.dispatch("signUserIn", {
         email: this.email,
         password: this.password
-      });
+      })
+      this.dialog=false
     },
     onDismissed() {
       this.$store.dispatch("clearError");

@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :key="comp">
     <!-- FIXME:shdjfghsjkdfg -->
     <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app dark>
       <v-list dense>
@@ -60,8 +60,11 @@
           <span class="title">Esla7at</span>
         </v-btn>
       </v-toolbar-title>
+      <p v-if="user" class="orange darken-4" >{{ user.userRole }}</p>
       <v-spacer></v-spacer>
-      <Signin />
+      <v-btn v-if="user" class="orange darken-4" >Logout</v-btn>
+      <!-- <Signin v-else /> -->
+      
       <v-btn text to="/about">About</v-btn>
     </v-app-bar>
 
@@ -74,7 +77,6 @@
 
 <script>
 export default {
-  name: "App",
   components: {
     Footer: () => import("./components/base/Footer")
   },
@@ -82,7 +84,20 @@ export default {
     //FIXME: condition
     dialog: false,
     drawer: null,
-    items: [
+    comp: 0
+  }),
+  methods: {
+    forceRerender() {
+      this.comp += 1
+    }
+  },
+  computed: {
+    user() {
+      return this.$store.user
+    },
+    items() {
+      if (!this.user) {
+        return [
       {
         icon: "mdi-account-box-outline",
         text: "Customers",
@@ -108,7 +123,18 @@ export default {
       },
       { icon: "mdi-cloud-download-outline", text: "Downloads", link: "/about" }
     ]
-  })
+      }
+      else return []
+    }
+  },
+  watch: {
+    user(value) {
+      if (value !== null && value !== undefined) {
+        this.$forceUpdate()
+        this.$router.push("/")
+      }
+    }
+  }
 };
 </script>
  
