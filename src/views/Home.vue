@@ -7,7 +7,7 @@
     <br />
     <v-layout align-center justify-center>
       <v-img
-        src="https://images.pexels.com/photos/190537/pexels-photo-190537.jpeg"
+        src="../assets/workshop.jpg"
         max-width="700"
         max-height="500"
       ></v-img>
