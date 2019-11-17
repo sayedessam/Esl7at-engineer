@@ -1,9 +1,13 @@
 <template>
   <v-container>
-    <h2 v-if="user" class="text-center primary--text">
-      Service Engineer: {{ user.userName }}{{ user.userRole == '0' ? ' (Admin)': ''}}</h2>
-    <hr />
     <Signin v-if="!user" />
+    <div v-if="!user" class="red--text darken-4">Signin to use the menu item</div>
+    <h2 v-if="user" class="text-center primary--text">
+      {{ user.userRole == '0' ? 'Administrator': 'Service Engineer'}}: {{ user.userName }}
+      <v-btn color="red" dark>Logout</v-btn>
+    </h2>
+    <hr />
+    
     <br />
     <v-layout align-center justify-center>
       <v-img

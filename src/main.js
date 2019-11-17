@@ -27,5 +27,7 @@ new Vue({
 			appId: '1:761550144668:web:9f953f32cf5b02d0349959',
 			measurementId: 'G-VHKLVZ5SP7'
 		})
+		this.$store.dispatch('loadMaster')
+		
 	}
 }).$mount('#app');

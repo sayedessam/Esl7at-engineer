@@ -1,6 +1,9 @@
 <template>
   <v-container>
-    <h2 class="text-center primary--text">Service Engineer: Amr Salim</h2>
+   <h2 v-if="user" class="text-center primary--text">
+      {{ user.userRole == '0' ? 'Administrator': 'Service Engineer'}}: {{ user.userName }}
+      <v-btn color="red" dark>Logout</v-btn>
+    </h2>
     <hr />
     <br />
 
@@ -108,6 +111,9 @@ export default {
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "New Customer" : "Edit Customer";
+    },
+    user() {
+      return this.$store.getters.user
     }
   },
 

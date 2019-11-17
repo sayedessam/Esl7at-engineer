@@ -4,7 +4,7 @@
   <v-layout justify-center>
     <v-dialog v-model="dialog" max-width="390">
       <template v-slot:activator="{ on }">
-        <v-btn class="orange darken-4" v-on="on">Signin</v-btn>
+        <v-btn class="orange darken-4" dark v-on="on">Signin</v-btn>
       </template>
       <v-card>
         <v-card-title class="headline orange">Service Engineer Sign in</v-card-title>
