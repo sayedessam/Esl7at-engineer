@@ -117,6 +117,7 @@ export default new Vuex.Store({
     createAccount({commit,state}, payload) {
       const account = {
         user_id: 4,
+        uid: 2,
         firebase_id: 'zoyJbplIIxODC0un4FDenTZ1a3w1',
         account_name: payload.accountName,
         email: payload.accountEmail,
@@ -129,8 +130,7 @@ export default new Vuex.Store({
       Authorization: `Bearer ${state.accessToken}`}})
       .then(res => {
         commit('setMakes', res.data.manufacturers)
-        console.log('Models:') 
-        console.log(res.data.manufacturers)
+        
       })
       .catch(err => console.log(err))
     }
@@ -138,6 +138,9 @@ export default new Vuex.Store({
   getters: {
     user(state) {
       return state.user
+    },
+    makes(state) {
+      return state.makes
     }
   }
 })
