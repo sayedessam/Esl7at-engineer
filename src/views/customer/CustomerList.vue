@@ -38,6 +38,9 @@
                     <v-flex xs12 sm4 md6>
                       <v-text-field v-model="editedItem.mobile" label="Mobile #"></v-text-field>
                     </v-flex>
+                    <v-flex xs12 sm4 md6>
+                      <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
+                    </v-flex>
                     <v-flex xs12 sm12 md12>
                       <v-text-field v-model="editedItem.address" label="Address"></v-text-field>
                     </v-flex>
@@ -84,8 +87,8 @@ export default {
         align: "left",
         value: "name"
       },
-      { text: "Appointm. Dt", value: "lastDate" },
       { text: "Mobile#", value: "mobile" },
+      { text: "Email#", value: "email" },
       { text: "Address", value: "address" },
       { text: "Vehicles", value: "vehicles" },
       { text: "Actions", value: "action", sortable: false }
@@ -94,14 +97,14 @@ export default {
     editedIndex: -1,
     editedItem: {
       name: "",
-      lastDate: "",
+      email: "",
       mobile: "",
       address: "",
       vehicles: null
     },
     defaultItem: {
       name: "",
-      lastDate: "",
+      email: "",
       mobile: "",
       address: "",
       vehicles: null
@@ -132,21 +135,21 @@ export default {
       this.customers = [
         {
           name: "Amir Ezzat",
-          lastDate: "28 Jul, 19",
+          email: 'amir@yahoo.com',
           mobile: "12-658-96584",
           address: "6 October",
           vehicles: 2
         },
         {
           name: "Naima Ibrahim",
-          lastDate: "-",
+          email: "naima@feel.com",
           mobile: "10-003-74782",
           address: "El Obour",
           vehicles: 1
         },
         {
           name: "Bahy Hamed - Uber",
-          lastDate: "1 Aug, 19",
+          email: "di@gmail.com",
           mobile: "12-763-65985",
           address: "Imbaba",
           vehicles: 1
@@ -183,6 +186,7 @@ export default {
         Object.assign(this.customers[this.editedIndex], this.editedItem);
       } else {
         this.customers.push(this.editedItem);
+        this.$store.dispatch('createAccount',this.editedItem)
       }
       this.close();
     }

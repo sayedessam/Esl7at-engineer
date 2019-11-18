@@ -64,7 +64,7 @@
       <v-spacer></v-spacer>
       <v-btn v-if="user" class="orange darken-4" >Logout</v-btn>
       <!-- <Signin v-else /> -->
-      
+      <span>{{ user }}</span>
       <v-btn text to="/about">About</v-btn>
     </v-app-bar>
 

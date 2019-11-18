@@ -1,15 +1,16 @@
-import Vue from 'vue';
-import App from './App.vue';
-import router from './router';
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
 import * as fb from 'firebase'
-import store from './store';
-import './registerServiceWorker';
-import vuetify from './plugins/vuetify';
-
-import Signin from './components/user/Signin';
+import store from './store'
+import './registerServiceWorker'
+import vuetify from './plugins/vuetify'
+import VueSimpleAlert from 'vue-simple-alert'
+import Signin from './components/user/Signin'
 
 Vue.config.productionTip = false;
 
+Vue.use(VueSimpleAlert)
 Vue.component('Signin', Signin);
 new Vue({
 	router,

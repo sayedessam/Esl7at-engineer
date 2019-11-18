@@ -16,8 +16,8 @@ export default new Vuex.Store({
       userName: '', // User name in the 'users' db table
       userRole: ''  // role 'users' db table (0=Admin, 1=Engineer, 2=Workshop)
     } */
-    apiAccessToken: null,
-    apiRefreshToken: null,
+    accessToken: null,
+    refreshToken: null,
     account: null,
     makes: null,
     models: null,
@@ -114,23 +114,23 @@ export default new Vuex.Store({
         console.log(`Firebase auth Error ${errCode}: ${errMsg}`)
     })
     },
-    createAccount({commit,state}, payload) {
+    createAccount({commit, state}, payload) {
       const account = {
         user_id: 4,
         uid: 2,
-        firebase_id: 'zoyJbplIIxODC0un4FDenTZ1a3w1',
-        account_name: payload.accountName,
-        email: payload.accountEmail,
-        mobile_number: payload.accountMobile,
-        address: payload.accountAddress
+        firebase_uid: 'zoyJbplIIxODC0un4FDenTZ1a3w1',
+        account_name: payload.name,
+        email: payload.email,
+        mobile_number: payload.mobile,
+        address: payload.address
       }
       // Create new customer account into API
-      axios.post((state.baseUrl + '/accounts', account),
+      
+      axios.post(state.baseUrl + '/accounts', account,
       {headers: {
       Authorization: `Bearer ${state.accessToken}`}})
       .then(res => {
-        commit('setMakes', res.data.manufacturers)
-        
+        alert(`Account ${account.account_name} created successfully`)
       })
       .catch(err => console.log(err))
     }
