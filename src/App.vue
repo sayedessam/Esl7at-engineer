@@ -60,11 +60,12 @@
           <span class="title">Esla7at</span>
         </v-btn>
       </v-toolbar-title>
-      <p v-if="user" class="orange darken-4" >{{ user.userRole }}</p>
       <v-spacer></v-spacer>
+      <span>{{ user ? user.userEmail : '' }}</span>
       <v-btn v-if="user" class="orange darken-4" >Logout</v-btn>
-      <!-- <Signin v-else /> -->
-      <span>{{ user }}</span>
+      
+      <Signin v-else />
+      
       <v-btn text to="/about">About</v-btn>
     </v-app-bar>
 
@@ -80,12 +81,14 @@ export default {
   components: {
     Footer: () => import("./components/base/Footer")
   },
-  data: () => ({
+  data () {
     //FIXME: condition
-    dialog: false,
-    drawer: null,
-    comp: 0
-  }),
+    return {
+      dialog: false,
+      drawer: null,
+      comp: 0
+    }  
+  },
   methods: {
     forceRerender() {
       this.comp += 1
@@ -93,10 +96,10 @@ export default {
   },
   computed: {
     user() {
-      return this.$store.user
+      return this.$store.getters.user
     },
     items() {
-      if (!this.user) {
+      if (this.user) {
         return [
       {
         icon: "mdi-account-box-outline",
@@ -124,13 +127,13 @@ export default {
       { icon: "mdi-cloud-download-outline", text: "Downloads", link: "/about" }
     ]
       }
-      else return []
+      else return [{ icon: "mdi-cloud-download-outline", text: "Downloads", link: "/about" }]
     }
   },
   watch: {
     user(value) {
       if (value !== null && value !== undefined) {
-        this.$forceUpdate()
+        // this.$forceUpdate()
         this.$router.push("/")
       }
     }

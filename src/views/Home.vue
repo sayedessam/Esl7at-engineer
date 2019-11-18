@@ -1,10 +1,10 @@
 <template>
   <v-container>
-    <Signin v-if="!user" />
+   
     <div v-if="!user" class="red--text darken-4">Signin to use the menu item</div>
     <h2 v-if="user" class="text-center primary--text">
       {{ user.userRole == '0' ? 'Administrator': 'Service Engineer'}}: {{ user.userName }}
-      <v-btn color="red" dark>Logout</v-btn>
+      
     </h2>
     <hr />
     

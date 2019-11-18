@@ -2,7 +2,7 @@
   <v-container>
    <h2 v-if="user" class="text-center primary--text">
       {{ user.userRole == '0' ? 'Administrator': 'Service Engineer'}}: {{ user.userName }}
-      <v-btn color="red" dark>Logout</v-btn>
+      
     </h2>
     <hr />
     <br />
@@ -171,6 +171,8 @@ export default {
 
     editVehicles(item) {
       confirm("Customer Vehicles Modal");
+      const index = this.customers.indexOf(item)
+      confirm(index)
     },
 
     close() {
