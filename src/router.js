@@ -1,7 +1,6 @@
 import Vue from 'vue';
-import Router from 'vue-router';
-import Home from './views/Home.vue';
-import VueRouter from 'vue-router';
+import Home from './views/Home.vue'
+import VueRouter from 'vue-router'
 import store from './store'
 
 const routes = [

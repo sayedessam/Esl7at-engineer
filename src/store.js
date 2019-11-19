@@ -121,7 +121,7 @@ export default new Vuex.Store({
         console.log(`Firebase auth Error ${errCode}: ${errMsg}`)
     })
     },
-    createAccount({commit, state}, payload) {
+    createAccount({state}, payload) {
       const account = {
         user_id: 4,
         uid: 2,
@@ -136,7 +136,7 @@ export default new Vuex.Store({
       axios.post(state.baseUrl + '/accounts', account,
       {headers: {
       Authorization: `Bearer ${state.accessToken}`}})
-      .then(res => {
+      .then( () => {
         alert(`Account ${account.account_name} created successfully`)
       })
       .catch(err => console.log(err))
