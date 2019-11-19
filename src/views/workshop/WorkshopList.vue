@@ -77,9 +77,9 @@
         </v-chip>
       </template>
       <template v-slot:item.services="{ item }">
-        <template v-for="serv in item.services">
+        <span v-for="serv in item.services" :key="serv">
           <v-chip>{{ serv }}</v-chip>
-        </template>
+        </span>
       </template>
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize">Reset</v-btn>
