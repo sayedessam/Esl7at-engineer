@@ -20,6 +20,13 @@ export default new Vuex.Store({
     refreshToken: null,
     account: null,
     makes: null,
+    /* makes
+    {
+      id: "2"
+      make: "BMW"
+      url: "https://firebasestorage.googleapis.com/v0/b/esla7at-v01.appsp...."
+    }
+    */
     models: null,
     vehicles: null,
     loading: false,
