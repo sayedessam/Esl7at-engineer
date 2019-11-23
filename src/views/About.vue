@@ -10,8 +10,9 @@
     <br />
     <v-btn color="secondary black--text">Download Service Book Manual</v-btn>
     <h2>We serve most of the cars in the market starting from model year 2005</h2>
+    
+    
     <!-- Select your car -->
-
      <v-toolbar color="blue accent-1" width="650">
     
     <v-toolbar-title class="title mr-6 hidden-sm-and-down">
@@ -90,7 +91,7 @@
 
 
     <v-row>
-    <v-col cols="12" sm="10" offset-sm="1">
+    <v-col cols="12" xm="8">
       <v-card>
         <v-container fluid>
           <v-row>
@@ -108,8 +109,8 @@
                   :lazy-src="n.url"
                   aspect-ratio="1"
                   class="grey lighten-5"
-                  max-width="110"
-                  max-height="80"
+                  max-width="100"
+                  max-height="70"
                 >
                 
                   <template v-slot:placeholder>

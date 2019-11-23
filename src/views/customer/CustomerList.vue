@@ -1,9 +1,13 @@
 <template>
   <v-container>
    <h2 v-if="user" class="text-center primary--text">
-      {{ user.userRole == '0' ? 'Administrator': 'Service Engineer'}}: {{ user.userName }}
-      
+      {{ user.userRole == '0' ? 'Administrator': 'Service Engineer'}}: {{ user.userName }}  
     </h2>
+    <v-container>
+      <v-row>
+        
+      </v-row>
+    </v-container>
     <hr />
     <br />
 

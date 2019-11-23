@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import * as fb from 'firebase'
 import axios from 'axios'
-
+import Swal from 'sweetalert2'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -30,7 +30,8 @@ export default new Vuex.Store({
     models: null,
     vehicles: null,
     loading: false,
-    error: null
+    error: null,
+    successMsg: null
 
   },
   mutations: {
@@ -52,6 +53,9 @@ export default new Vuex.Store({
     },
     setAccount(state, payload) {
       state.account = payload
+    },
+    setMsg(state, payload) {
+      state.successMsg = payload
     }
 
 
@@ -59,7 +63,7 @@ export default new Vuex.Store({
   actions: {
     loadMaster({commit, state}) {
       commit('setLoading', true)
-
+      
       // Login to Esla7at API
       axios.post(state.baseUrl + '/login', {
         username : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9#eyJpYXQiOjE1NzIxNzE0ODQsIm5iZiI6M",
@@ -67,7 +71,7 @@ export default new Vuex.Store({
         .then(res => {
             const accessToken = res.data.access_token;
             const refreshToken = res.data.referesh_token
-            console.log(res.data)
+            
             commit('setTokens', {access: accessToken, refresh: refreshToken})
             // Load makes
             axios.get((state.baseUrl + '/manufacturers/all'),
@@ -75,10 +79,10 @@ export default new Vuex.Store({
             Authorization: `Bearer ${state.accessToken}`}})
             .then(res => {
               commit('setMakes', res.data.manufacturers)
-              console.log('Models:') 
+              console.log('Mokes:') 
               console.log(res.data.manufacturers)
             })
-            .catch(err => console.log(err))
+            .catch(err => Swal.fire(err))
             
             // Load vehicle combinations
             axios.get((state.baseUrl + '/makes/all'),
@@ -86,13 +90,14 @@ export default new Vuex.Store({
             Authorization: `Bearer ${state.accessToken}`}})
             .then(res => {
               commit('setModels', res.data.makes)
-              console.log('Makes:') 
+              commit('setLoading', false)
+              console.log('Models:') 
               console.log(res.data.makes)
+              Swal.fire('Signin to start using Service Engieer module..','Call administrator if you don\'t have user')
             })
-            .catch(err => console.log(err))
-
+            .catch(err => Swal.fire(err))
         })
-        .catch(err => console.log(err))
+        .catch(err => Swal.fire(err))
         
     },
     signUserIn({commit}, payload) {
@@ -112,16 +117,16 @@ export default new Vuex.Store({
             newUser.userRole = data.role
             commit('logUser', newUser)
         }) 
-        .catch(err => console.log(err))
+        .catch(err => Swal.fire(err))
         })
       .catch(function(error) {
       // Handle Errors here.
         const errCode = error.code;
         const errMsg = error.message;
-        console.log(`Firebase auth Error ${errCode}: ${errMsg}`)
+        Swal.fire(`Firebase auth Error ${errCode}: ${errMsg}`)
     })
     },
-    createAccount({state}, payload) {
+    createAccount({commit, state}, payload) {
       const account = {
         user_id: 4,
         uid: 2,
@@ -131,15 +136,17 @@ export default new Vuex.Store({
         mobile_number: payload.mobile,
         address: payload.address
       }
-      // Create new customer account into API
       
+      
+      // Create new customer account into API
       axios.post(state.baseUrl + '/accounts', account,
       {headers: {
       Authorization: `Bearer ${state.accessToken}`}})
-      .then( () => {
-        alert(`Account ${account.account_name} created successfully`)
+      .then( (res) => {
+        Swal.fire(`Account "${account.account_name}" created successfully`)
+        commit('setMsg', `Account "${account.account_name}" created successfully, ${JSON.stringify(res, undefined,2)}`)
       })
-      .catch(err => console.log(err))
+      .catch(err => Swal.fire(err))
     }
   }, // End of actions
   getters: {
@@ -148,6 +155,12 @@ export default new Vuex.Store({
     },
     makes(state) {
       return state.makes
-    }
+    },
+    successMsg(state) {
+      return state.successMsg
+    },
+    loading(state) {
+      return state.loading
+    },
   }
 })

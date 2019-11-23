@@ -82,7 +82,6 @@ const router = new VueRouter({
 })
 
 router.beforeEach( (to, from, next) => {
-	console.log(store.getters.user)
 	if(store.getters.user || to.path === '/' || to.path === '/about') {
 		next()
 	} else next('/')

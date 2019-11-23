@@ -7,11 +7,14 @@ import './registerServiceWorker'
 import vuetify from './plugins/vuetify'
 import VueSimpleAlert from 'vue-simple-alert'
 import Signin from './components/user/Signin'
+import Alert from './components/base/Alert'
 
 Vue.config.productionTip = false;
 
 Vue.use(VueSimpleAlert)
-Vue.component('Signin', Signin);
+Vue.component('Signin', Signin)
+Vue.component('Alert', Alert)
+
 new Vue({
 	router,
 	store,

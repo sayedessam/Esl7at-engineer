@@ -1,7 +1,7 @@
 <template>
   <v-app :key="comp">
     <!-- FIXME:shdjfghsjkdfg -->
-    <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app dark>
+    <v-navigation-drawer v-if="!loading" v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app dark>
       <v-list dense>
         <template v-for="item in items">
           <v-layout v-if="item.heading" :key="item.heading" align-center>
@@ -97,6 +97,9 @@ export default {
   computed: {
     user() {
       return this.$store.getters.user
+    },
+    loading() {
+      return this.$store.getters.loading
     },
     items() {
       if (this.user) {
