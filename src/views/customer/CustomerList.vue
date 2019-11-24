@@ -11,7 +11,22 @@
     <hr />
     <br />
 
-    <v-data-table :headers="headers" :items="customers" sort-by="lastDate" class="elevation-1">
+    <v-card v-if="loading" flat class="d-flex flex-column justify-center align-center fill-height">
+      <br>
+      <br>
+      <br>
+      <v-img src="../../assets/eslah.png" max-width="200" class="ma-4"></v-img>
+      <br>
+        <v-progress-circular
+        indeterminate
+        color="red"
+        size="140"
+        width="15"
+        rotate="30"
+        style="color:#3FBF7F"
+        >loading ...</v-progress-circular>
+    </v-card>
+    <v-data-table v-else :headers="headers" :items="customers" sort-by="account_name" class="elevation-1">
       <template v-slot:top>
         <v-toolbar flat color="white">
           <v-toolbar-title
@@ -36,13 +51,13 @@
                 <v-container grid-list-md>
                   <v-layout wrap>
                     <v-flex xs12 sm8 md6>
-                      <v-text-field v-model="editedItem.name" label="Customer full name"></v-text-field>
+                      <v-text-field v-model="editedItem.account_name" label="Customer full name"></v-text-field>
                     </v-flex>
 
                     <v-flex xs12 sm4 md6>
-                      <v-text-field v-model="editedItem.mobile" label="Mobile #"></v-text-field>
+                      <v-text-field v-model="editedItem.mobile_number" label="Mobile #"></v-text-field>
                     </v-flex>
-                    <v-flex xs12 sm4 md6>
+                    <v-flex xs12 sm6 md6>
                       <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm12 md12>
@@ -98,27 +113,26 @@ export default {
       {
         text: "Customer Name",
         align: "left",
-        value: "name"
+        value: "account_name"
       },
-      { text: "Mobile#", value: "mobile" },
+      { text: "Mobile#", value: "mobile_number" },
       { text: "Email#", value: "email" },
       { text: "Address", value: "address" },
-      { text: "Vehicles", value: "vehicles" },
+      // { text: "Vehicles", value: "vehicles" },
       { text: "Actions", value: "action", sortable: false }
     ],
-    customers: [],
     editedIndex: -1,
     editedItem: {
-      name: "",
+      account_name: "",
       email: "",
-      mobile: "",
+      mobile_number: "",
       address: "",
       vehicles: null
     },
     defaultItem: {
-      name: "",
+      account_name: "",
       email: "",
-      mobile: "",
+      mobile_number: "",
       address: "",
       vehicles: null
     }
@@ -133,6 +147,9 @@ export default {
     },
     loading() {
       return this.$store.getters.loading
+    },
+    customers() {
+      return this.$store.getters.account
     }
   },
 
@@ -148,6 +165,9 @@ export default {
 
   methods: {
     initialize() {
+      this.$store.dispatch('getAccounts', '/all')
+      
+      /* 
       this.customers = [
         {
           name: "Amir Ezzat",
@@ -157,9 +177,9 @@ export default {
           vehicles: 2
         },
         {
-          name: "Naima Ibrahim",
+          name: "Naima Ibrahim", // account_name
           email: "naima@feel.com",
-          mobile: "10-003-74782",
+          mobile: "10-003-74782", // mobile_number
           address: "El Obour",
           vehicles: 1
         },
@@ -170,7 +190,7 @@ export default {
           address: "Imbaba",
           vehicles: 1
         }
-      ];
+      ] */
     },
 
     editItem(item) {
@@ -196,7 +216,7 @@ export default {
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
-      }, 300);
+      }, 1000);
     },
 
     save() {

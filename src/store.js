@@ -18,7 +18,7 @@ export default new Vuex.Store({
     } */
     accessToken: null,
     refreshToken: null,
-    account: null,
+    account: [],
     makes: null,
     /* makes
     {
@@ -132,12 +132,11 @@ export default new Vuex.Store({
         user_id: 4,
         uid: 2,
         firebase_uid: 'zoyJbplIIxODC0un4FDenTZ1a3w1',
-        account_name: payload.name,
+        account_name: payload.account_name,
         email: payload.email,
-        mobile_number: payload.mobile,
+        mobile_number: payload.mobile_number,
         address: payload.address
       }
-      
       
       // Create new customer account into API
       axios.post(state.baseUrl + '/accounts', account,
@@ -147,6 +146,20 @@ export default new Vuex.Store({
         Swal.fire(`Account "${account.account_name}" created successfully`)
         commit('setLoading', false)
         commit('setMsg', `Account "${account.account_name}" created successfully, ${JSON.stringify(res, undefined,2)}`)
+      })
+      .catch(err => Swal.fire('Error',err.message))
+    }, // createAccount()
+    getAccounts({commit, state}, payload) {
+      commit('setLoading', true)
+      // Get customer accounta from API
+      axios.get(state.baseUrl + '/accounts' + payload,
+      {headers: {
+      Authorization: `Bearer ${state.accessToken}`}})
+      .then( (res) => {
+        commit('setAccount', res.data.accounts)
+        console.log(res.data.accounts)
+        commit('setLoading', false)
+        commit('setMsg', `Accounts loaded, ${JSON.stringify(res, undefined,2)}`)
       })
       .catch(err => Swal.fire('Error',err.message))
     }
@@ -163,6 +176,9 @@ export default new Vuex.Store({
     },
     loading(state) {
       return state.loading
+    },
+    account(state) {
+      return state.account
     },
   }
 })
