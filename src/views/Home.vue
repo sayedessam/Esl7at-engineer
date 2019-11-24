@@ -1,20 +1,17 @@
 <template>
 <v-container app>
   
-    <v-card v-if="loading" flat class="d-flex justify-center align-end fill-height">
+    <v-card v-if="loading" flat class="d-flex flex-column justify-center align-center fill-height">
       <br>
+     <br>
+     <br>
+      <v-img src="../assets/eslah.png" max-width="200" class="ma-4"></v-img>
       <br>
-      <br>
-      <br>
-      <p>
-         <v-img src="../assets/eslah.png" max-width="150" class="ma-4"></v-img>
-      </p>
-      
 				<v-progress-circular
 				indeterminate
 				color="red"
-				size="120"
-				width="10"
+				size="140"
+				width="15"
 				rotate="30"
 				style="color:#3FBF7F"
 				>loading ...</v-progress-circular>

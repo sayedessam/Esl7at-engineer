@@ -95,9 +95,9 @@ export default new Vuex.Store({
               console.log(res.data.makes)
               Swal.fire('Signin to start using Service Engieer module..','Call administrator if you don\'t have user')
             })
-            .catch(err => Swal.fire(err))
+            .catch(err => Swal.fire('Error',err.message))
         })
-        .catch(err => Swal.fire(err))
+        .catch(err => Swal.fire('Error', err.message))
         
     },
     signUserIn({commit}, payload) {
@@ -127,6 +127,7 @@ export default new Vuex.Store({
     })
     },
     createAccount({commit, state}, payload) {
+      commit('setLoading', true)
       const account = {
         user_id: 4,
         uid: 2,
@@ -144,9 +145,10 @@ export default new Vuex.Store({
       Authorization: `Bearer ${state.accessToken}`}})
       .then( (res) => {
         Swal.fire(`Account "${account.account_name}" created successfully`)
+        commit('setLoading', false)
         commit('setMsg', `Account "${account.account_name}" created successfully, ${JSON.stringify(res, undefined,2)}`)
       })
-      .catch(err => Swal.fire(err))
+      .catch(err => Swal.fire('Error',err.message))
     }
   }, // End of actions
   getters: {
