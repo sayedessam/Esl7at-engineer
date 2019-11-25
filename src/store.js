@@ -38,6 +38,9 @@ export default new Vuex.Store({
     logUser(state, payload) {
       state.user = payload
     },
+    logUserOut(state) {
+      state.user = null
+    },
     setLoading(state, payload) {
       state.loading = payload
     },
@@ -93,7 +96,7 @@ export default new Vuex.Store({
               commit('setLoading', false)
               console.log('Models:') 
               console.log(res.data.makes)
-              Swal.fire('Signin to start using Service Engieer module..','Call administrator if you don\'t have user')
+              Swal.fire('Signin to start using Service Engineer module..','Call administrator if you don\'t have user')
             })
             .catch(err => Swal.fire('Error',err.message))
         })
@@ -125,6 +128,17 @@ export default new Vuex.Store({
         const errMsg = error.message;
         Swal.fire(`Firebase auth Error ${errCode}: ${errMsg}`)
     })
+    },
+    logUserOut({commit}) {
+      fb.auth().signOut()
+      .then( () => {
+        commit('logUserOut')
+      })
+      .catch( (error) => {
+        const errCode = error.code;
+        const errMsg = error.message;
+        Swal.fire(`Firebase auth Error ${errCode}: ${errMsg}`)
+      })
     },
     createAccount({commit, state}, payload) {
       commit('setLoading', true)

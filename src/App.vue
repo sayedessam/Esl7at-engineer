@@ -62,7 +62,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <span>{{ user ? user.userEmail : '' }}</span>
-      <v-btn v-if="user" class="orange darken-4" >Logout</v-btn>
+      <v-btn v-if="user" class="orange darken-4" @click="logOutUser">Logout</v-btn>
       
       <Signin v-else />
       
@@ -92,7 +92,10 @@ export default {
   methods: {
     forceRerender() {
       this.comp += 1
-    }
+    },
+    logOutUser() {
+      this.$store.dispatch('logUserOut')
+    },
   },
   computed: {
     user() {

@@ -118,7 +118,7 @@ export default {
       { text: "Mobile#", value: "mobile_number" },
       { text: "Email#", value: "email" },
       { text: "Address", value: "address" },
-      // { text: "Vehicles", value: "vehicles" },
+      { text: "Vehicles", value: "vehicles" },
       { text: "Actions", value: "action", sortable: false }
     ],
     editedIndex: -1,
